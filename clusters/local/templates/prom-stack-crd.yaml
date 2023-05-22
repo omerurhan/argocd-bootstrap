@@ -5,7 +5,7 @@ metadata:
   name: prom-stack
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "-1"
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
@@ -13,26 +13,14 @@ spec:
   source:
     repoURL: 'https://charts.rancher.io'
     targetRevision: 100.1.2+up19.0.3
-    helm:
-      values: |
-        prometheus:
-          prometheusSpec:
-            enableAdminAPI: true
-            resources:
-              limits:
-                cpu: 1000m
-                memory: 1Gi
-              requests:
-                cpu: 500m
-                memory: 500Mi
-            retentionSize: 25GiB
-    chart: rancher-monitoring
+    chart: rancher-monitoring-crd
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: cattle-monitoring-system
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
+    - Replace=true
     automated:
       prune: true
       selfHeal: true
