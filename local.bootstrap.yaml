@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ${CLUSTER_NAME}-bootstrapper
+  name: local-bootstrapper
   namespace: argocd
 spec:
   destination:
     namespace: argocd
-    server: ${SERVER_ADDR}
+    server: https://kubernetes.default.svc
   project: default
   source:
-    path: "clusters/${CLUSTER_NAME}"
-    repoURL: ${REPO_URL}
+    path: "clusters/local"
+    repoURL: https://github.com/omerurhan/argocd-bootstrap.git
     targetRevision: HEAD
   syncPolicy:
     automated:
