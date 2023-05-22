@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: 'https://charts.rancher.io'
-    targetRevision: 101.0.0+up19.0.3
+    targetRevision: 100.1.2+up19.0.3
     helm:
       values: |
         prometheus:
