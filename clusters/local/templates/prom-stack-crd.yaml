@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     repoURL: 'https://charts.rancher.io'
-    targetRevision: 100.1.2+up19.0.3
+    targetRevision: 100.2.0+up40.1.2
     chart: rancher-monitoring-crd
   destination:
     server: 'https://kubernetes.default.svc'

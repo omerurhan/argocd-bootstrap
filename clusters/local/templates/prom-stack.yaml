@@ -12,12 +12,11 @@ spec:
   project: default
   source:
     repoURL: 'https://charts.rancher.io'
-    targetRevision: 100.1.2+up19.0.3
+    targetRevision: 100.2.0+up40.1.2
     helm:
       values: |
         prometheus:
           prometheusSpec:
-            enableAdminAPI: true
             resources:
               limits:
                 cpu: 1000m
@@ -25,7 +24,6 @@ spec:
               requests:
                 cpu: 500m
                 memory: 500Mi
-            retentionSize: 25GiB
     chart: rancher-monitoring
   destination:
     server: 'https://kubernetes.default.svc'
