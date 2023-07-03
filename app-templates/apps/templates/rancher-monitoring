@@ -1,0 +1,54 @@
+{{- if .Values.monitoring.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rancher-monitoring
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: cattle-monitoring-system
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: charts/rancher-monitoring/100.1.3+up19.0.3
+    repoURL: 'https://git.rancher.io/charts'
+    targetRevision: release-v2.6
+    helm:
+      values: |-
+        prometheus:
+          prometheusSpec:
+            enableAdminAPI: true
+            evaluationInterval: 1m
+            retention: 20d
+            retentionSize: 50GiB
+            scrapeInterval: 1m
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  accessModes:
+                  - ReadWriteOnce
+                  resources:
+                    requests:
+                      storage: 50Gi
+                  storageClassName: vsphere-csi-sc
+                  volumeMode: Filesystem
+        rke2ControllerManager:
+          enabled: true
+        rke2Etcd:
+          enabled: true
+        rke2IngressNginx:
+          enabled: true
+        rke2Proxy:
+          enabled: true
+        rke2Scheduler:
+          enabled: true
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
