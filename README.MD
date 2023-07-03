@@ -31,9 +31,11 @@ Create app of apps bootstrap file
 cat app-templates/bootstrap.yaml | envsubst '$CLUSTER_NAME,$SERVER_ADDR, $REPO_URL' > app-of-apps/${CLUSTER_NAME}.bootstrap.yaml
 
 ```
-Copy templates files to related cluster folder
+Copy templates files to related cluster folder and subst environments.
 ```
-cp -R app-templates/apps/* clusters/${CLUSTER_NAME} 
+cp -R app-templates/apps/* clusters/${CLUSTER_NAME}
+envsubst '$CLUSTER_NAME,$SERVER_ADDR, $REPO_URL' < clusters/${CLUSTER_NAME}/values.yaml | sponge clusters/${CLUSTER_NAME}/values.yaml
+
 ```
 
 ## Bootstrapping

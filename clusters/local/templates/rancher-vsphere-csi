@@ -1,0 +1,42 @@
+{{- if .Values.vsphereCsi.enable }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rancher-vsphere-csi
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: kube-system
+    server: {{ .Values.global.server }}
+  source:
+    path: charts/rancher-vsphere-csi/100.3.0+up2.5.1-rancher1
+    repoURL: 'https://git.rancher.io/charts'
+    targetRevision: release-v2.6
+    helm:
+      values: |-
+        csiController:
+          csiResizer:
+            enabled: true
+        csiMigration:
+          enabled: true
+        onlineVolumeExtend:
+          enabled: true
+        storageClass:
+          allowVolumeExpansion: true
+          datastoreURL: ds:///vmfs/volumes/6477395a-0ce26274-cdf9-ea5547000336/
+          storagePolicyName: container-storage-policy
+        vCenter:
+          configSecret:
+            generate: false
+            name: vsphere-config-secret
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+{{- end }}
