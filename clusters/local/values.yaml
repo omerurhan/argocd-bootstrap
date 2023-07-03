@@ -8,4 +8,4 @@ global:
 monitoring:
   enable: true
 vsphereCsi: 
-  enable: false
+  enable: true
