@@ -28,12 +28,12 @@ export REPO_URL="https://github.com/omerurhan/argocd-bootstrap.git"
 
 Create app of apps bootstrap file
 ```
-cat app-templates/bootstrap.yaml | envsubst '$CLUSTER_NAME,$SERVER_ADDR, $REPO_URL' > app-of-apps/${CLUSTER_NAME}.bootstrap.yaml
+cat templates/bootstrap.yaml | envsubst '$CLUSTER_NAME,$SERVER_ADDR, $REPO_URL' > apps/${CLUSTER_NAME}.bootstrap.yaml
 
 ```
 Copy templates files to related cluster folder and subst environments.
 ```
-cp -R app-templates/apps/* clusters/${CLUSTER_NAME}
+cp -R templates/apps/* clusters/${CLUSTER_NAME}
 envsubst '$CLUSTER_NAME,$SERVER_ADDR, $REPO_URL' < clusters/${CLUSTER_NAME}/values.yaml | sponge clusters/${CLUSTER_NAME}/values.yaml
 
 ```
@@ -43,5 +43,5 @@ envsubst '$CLUSTER_NAME,$SERVER_ADDR, $REPO_URL' < clusters/${CLUSTER_NAME}/valu
 To bootstrap, apply the bootstrap.yaml file:
 
 ```bash
-kubectl apply -f app-of-apps/${CLUSTER_NAME}.bootstrap.yaml
+kubectl apply -f apps/${CLUSTER_NAME}.bootstrap.yaml
 ```
