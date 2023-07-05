@@ -16,6 +16,7 @@ spec:
     repoURL: 'https://git.rancher.io/charts'
     targetRevision: release-v2.6
     helm:
+      releaseName: rancher-monitoring
       values: |-
         prometheus:
           prometheusSpec:
