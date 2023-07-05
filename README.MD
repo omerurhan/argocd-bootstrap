@@ -9,10 +9,10 @@ The following is the directory structure for the bootstrap process:
 
 ```bash
 .
-├── app-of-apps # bootstrap manifest per cluster
+├── apps # bootstrap manifest per cluster
 ├── README.md 
-├── app-templates/apps # child app templates (one file per app)
-├── app-templates/bootstrap.yaml # bootstrap manifest template
+├── templates/apps # child app templates (one file per app)
+├── templates/bootstrap.yaml # bootstrap manifest template
 └── cluster # live manifests for parent apps per cluster
 └── helpers-crds # deployed crds & helper apps per cluster
 ```

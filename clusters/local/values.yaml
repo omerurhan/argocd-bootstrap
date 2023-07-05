@@ -4,6 +4,7 @@
 
 global:
   server: "https://kubernetes.default.svc"
+  clusterName: "local"
 
 monitoring:
   enable: true

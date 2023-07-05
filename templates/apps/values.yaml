@@ -4,6 +4,7 @@
 
 global:
   server: "${SERVER_ADDR}"
+  clusterName: "${CLUSTER_NAME}"
 
 monitoring:
   enable: true
